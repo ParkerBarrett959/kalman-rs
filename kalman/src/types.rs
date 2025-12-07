@@ -1,5 +1,5 @@
 //! Kalman Filter Types
-use nalgebra::{SMatrix, SVector};
+use nalgebra::{RealField, SMatrix, SVector};
 
 /// Gaussian
 ///
@@ -13,12 +13,15 @@ use nalgebra::{SMatrix, SVector};
 /// * `DIM` - Dimension of the state
 /// * `mean` - The Gaussian mean vector (DIM x 1)
 /// * `cov` - The Gaussian covariance matrix (DIM x DIM)
-pub struct Gaussian<T: Scalar, const DIM: usize> {
+pub struct Gaussian<T: RealField, const DIM: usize> {
     pub mean: SVector<T, DIM>,
     pub cov: SMatrix<T, DIM, DIM>,
 }
 
-impl<T, const DIM: usize> Gaussian<T, DIM> {
+impl<T, const DIM: usize> Gaussian<T, DIM>
+where
+    T: RealField,
+{
     /// Initialization with default mean and covariance
     ///
     /// # Arguments
